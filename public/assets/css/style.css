@@ -1,11 +1,12 @@
 body{
-    background-color: aliceblue;
+    background-color: rgb(240, 247, 255);
     position:relative;
     min-height: 100vh;
     font-family: "Lato";
 }
 nav{
     background-color: blue;
+    height: 100px;
 }
 .nav-link, .navbar-brand {
     color:white;
