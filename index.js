@@ -7,7 +7,7 @@ const db = new Database({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "",
+    password: "Loandnis122#",
     database: "employ"
   });
   
@@ -80,6 +80,7 @@ async function getEmployeeNames() {
         employeeNames.push(employee.first_name + " " + employee.last_name);
     }
     return employeeNames;
+    
 }
 
 async function viewAllRoles() {
@@ -390,3 +391,4 @@ process.on("exit", async function(code) {
 });
 
 main();
+

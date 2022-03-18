@@ -3,10 +3,13 @@ const exphbs = require('express-handlebars');
 const path = require('path');
 const moment = require('moment');
 const session = require('express-session');
+const routes = require('./controllers');
+const sequelize = require('./config/connections');
 
 const checkAuth = require('./utils/auth.js')
 
 const app = express();
+const PORT = process.env.PORT || 3001;
 
 app.use(express.static('public'));
 app.use(express.json())
@@ -43,6 +46,7 @@ app.get('/clockout', (req, res) => {
     });
 })
 
-app.listen(3001, () => {
-    console.log("Server is running on PORT 3001!")
-})
+sequelize.sync({ force: false }).then(() => {
+    app.listen(PORT, () => console.log('Now listening'));
+  });
+  
