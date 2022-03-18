@@ -1,6 +1,5 @@
 [
     {
-        "id": "1",
         "title":"Sales Manager",
         "salary":"100000",
         "department_id": "1"
@@ -8,7 +7,6 @@
     },
 
     {
-        "id": "2",
         "title":"Sales person",
         "salary":"50000",
         "department_id": "1"
@@ -16,7 +14,6 @@
     },
 
     {
-        "id": "3",
         "title":"IT Manager",
         "salary":"100000",
         "department_id": "2"
