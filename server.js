@@ -11,6 +11,13 @@ const checkAuth = require('./utils/auth.js')
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+
+
+const loginAlert = document.querySelector("bth punch");
+    loginAlert.addEventListener("click", () => {
+        alert("You Have sucessfully logged in")
+    });
+    
 app.use(express.static('public'));
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
