@@ -1,19 +1,22 @@
 const router = require('express').Router();
-const { Employee } = require('../../models');
+const { Employee, Department, Role } = require('../../models');
 
 router.post('/', async (req, res) => {
-  try {
-    const employeeData = await Employee.create(req.body);
 
-    req.session.save(() => {
-      req.session.employee_id = employeeData.id;
-      req.session.logged_in = true;
+    try {
+        const employeeData = await Employee.create(req.body);
+    
+        req.session.save(() => {
+          req.session.employee_id = employeeData.id;
+          req.session.logged_in = true;
+    
+          res.status(200).json(employeeData);
+        });
+      } catch (err) {
+        res.status(400).json(err);
+      }
 
-      res.status(200).json(employeeData);
-    });
-  } catch (err) {
-    res.status(400).json(err);
-  }
+ 
 });
 
 router.post('/login', async (req, res) => {
