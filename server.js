@@ -20,32 +20,33 @@ app.use(express.urlencoded({extended: false}))
 const hbs = exphbs.create();
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars")
+app.use(routes)
 
 // app.get('/', checkAuth, (req, res) => {
-app.get('/', (req, res) => {
-    res.render("homepage")
-})
+// app.get('/', (req, res) => {
+//     res.render("homepage")
+// })
 
-app.get('/login', (req, res) => {
-    res.render("login")
-})
+// app.get('/login', (req, res) => {
+//     res.render("login")
+// })
 
-app.get('/clock', (req, res) => {
-    res.render("clock")
-})
+// app.get('/clock', (req, res) => {
+//     res.render("clock")
+// })
 
-app.get('/profile', (req, res) => {
-    res.render("profile")
-})
+// app.get('/profile', (req, res) => {
+//     res.render("profile")
+// })
 
-app.get('/clockout', (req, res) => {
-    var clockInTime = moment("2022-03-17"); //get the saved clockin from the database
-    var clockOutTime = moment(); // get the current time
-    var totalTime = clockOutTime.diff(clockInTime, 'minutes')
-    res.json({
-        message: "Total time is " + totalTime + " minutes"
-    });
-})
+// app.get('/clockout', (req, res) => {
+//     var clockInTime = moment("2022-03-17"); //get the saved clockin from the database
+//     var clockOutTime = moment(); // get the current time
+//     var totalTime = clockOutTime.diff(clockInTime, 'minutes')
+//     res.json({
+//         message: "Total time is " + totalTime + " minutes"
+//     });
+// })
 
 sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => console.log('Now listening'));

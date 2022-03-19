@@ -3,7 +3,7 @@
         "first_name" : "Joe",
         "last_name" : "Shmoe",
         "role_id" : "2",
-        "manager_id" : "1",
+        "manager_id" : 1,
         "email" : "Joe@gmail.com",
         "password" : "12345"
         
@@ -13,7 +13,7 @@
         "first_name" : "Macy",
         "last_name" : "Stewart",
         "role_id" : "3",
-        "manager_id" : "2",
+        "manager_id" : 2,
         "email" : "Macn@gmail.com",
         "password" : "12345"
         
@@ -23,7 +23,6 @@
         "first_name" : "Nick",
         "last_name" : "Wright",
         "role_id" : "3",
-        "manager_id" : "null",
         "email" : "Nic@gmail.com",
         "password" : "12345"
         

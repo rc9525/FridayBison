@@ -1,6 +1,23 @@
 const router = require('express').Router();
 const { Employee, Department, Role } = require('../../models');
 
+router.get('/', (req, res) => {
+    // find all tags
+    // be sure to include its associated Product data
+    Employee.findAll(
+      {
+        include: {
+          model: Department
+        }
+      }
+    )
+      .then(employeeData => res.json(employeeData))
+      .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  });
+
 router.post('/', async (req, res) => {
 
     try {
