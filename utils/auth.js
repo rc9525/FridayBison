@@ -1,6 +1,6 @@
 const checkAuth = (req, res, next) => {
-    // change this to req.session later
-    if(!req.body.loggedIn) {
+  
+    if(!req.session.loggedIn) {
         res.redirect("/login")
     } else {
         next();
