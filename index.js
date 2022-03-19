@@ -3,11 +3,6 @@ let Database = require("./async-db");
 let cTable = require("console.table");
 let mysql = require('mysql');
 
-const loginAlert = document.querySelector("bth punch");
-    loginAlert.addEventListener("click", () => {
-        alert("You Have sucessfully logged in")
-    });
-    
 const db = new Database({
     host: "localhost",
     port: 3306,
