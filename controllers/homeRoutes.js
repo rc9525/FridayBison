@@ -2,30 +2,55 @@ const router = require('express').Router();
 const { Department, Employee, Role } = require('../models');
 const withAuth = require('../utils/auth');
 
-router.get('/', async (req, res) => {
-    try {
-      // Get all employees and JOIN with department data
-      const employeeData = await Employee.findAll({
-        include: [
-          {
-            model: Department,
-            attributes: ['name'],
-          },
-        ],
-      });
+router.get('/', (req, res) => {
+  res.render("homepage")
+})
 
-      // Serialize data so the template can read it
-    const employees = employeeData.map((employee) => employee.get({ plain: true }));
+router.get('/login', (req, res) => {
+  res.render("login")
+})
 
-    // Pass serialized data and session flag into template
-    res.render('homepage', { 
-      employees, 
-      logged_in: req.session.logged_in 
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+router.get('/clock', (req, res) => {
+  res.render("clock")
+})
+
+router.get('/profile', (req, res) => {
+  res.render("profile")
+})
+
+router.get('/clockout', (req, res) => {
+  var clockInTime = moment("2022-03-17"); //get the saved clockin from the database
+  var clockOutTime = moment(); // get the current time
+  var totalTime = clockOutTime.diff(clockInTime, 'minutes')
+  res.json({
+      message: "Total time is " + totalTime + " minutes"
+  });
+})
+
+// router.get('/', async (req, res) => {
+//     try {
+//       // Get all employees and JOIN with department data
+//       const employeeData = await Employee.findAll({
+//         include: [
+//           {
+//             model: Department,
+//             attributes: ['name'],
+//           },
+//         ],
+//       });
+
+//       // Serialize data so the template can read it
+//     const employees = employeeData.map((employee) => employee.get({ plain: true }));
+
+//     // Pass serialized data and session flag into template
+//     res.render('homepage', { 
+//       employees, 
+//       logged_in: req.session.logged_in 
+//     });
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 router.get('/employee/:id', async (req, res) => {
   try {
@@ -69,15 +94,6 @@ router.get('/employee', withAuth, async (req, res) => {
     }
   });
   
-  router.get('/login', (req, res) => {
-    // If the user is already logged in, redirect the request to another route
-    if (req.session.logged_in) {
-      res.redirect('/profile');
-      return;
-    }
-  
-    res.render('login');
-  });
   
   module.exports = router;
   
