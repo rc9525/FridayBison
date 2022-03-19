@@ -1,25 +1,25 @@
 const router = require('express').Router();
-const { department, employee, role } = require('../models');
+const { Department, Employee, Role } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
     try {
       // Get all employees and JOIN with department data
-      const employeeData = await employee.findAll({
+      const employeeData = await Employee.findAll({
         include: [
           {
-            model: departments,
+            model: Department,
             attributes: ['name'],
           },
         ],
       });
 
       // Serialize data so the template can read it
-    const employee = employeeData.map((employee) => employee.get({ plain: true }));
+    const employees = employeeData.map((employee) => employee.get({ plain: true }));
 
     // Pass serialized data and session flag into template
     res.render('homepage', { 
-      employee, 
+      employees, 
       logged_in: req.session.logged_in 
     });
   } catch (err) {
@@ -27,13 +27,35 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/employee/:id', async (req, res) => {
+  try {
+    const employeeData = await Employee.findByPk(req.params.id, {
+      include: [
+        {
+          model: Department,
+          attributes: ['name'],
+        },
+      ],
+    });
+
+    const employee = employeeData.get({ plain: true });
+
+    res.render('employee', {
+      ...employee,
+      logged_in: req.session.logged_in
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) => {
+router.get('/employee', withAuth, async (req, res) => {
     try {
       // Find the logged in user based on the session ID
-      const employeeData = await employee.findByPk(req.session.employee_id, {
+      const employeeData = await Employee.findByPk(req.session.employee_id, {
         attributes: { exclude: ['password'] },
-        include: [{ model: department }],
+        include: [{ model: Department }],
       });
   
       const employee = employeeData.get({ plain: true });
